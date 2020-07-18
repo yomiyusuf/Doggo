@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Doggo</string>
+    <string name="title_home">Guess</string>
+    <string name="title_breeds">Breeds</string>
+</resources>
