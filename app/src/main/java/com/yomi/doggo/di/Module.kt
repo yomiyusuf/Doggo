@@ -4,10 +4,14 @@ import com.google.gson.GsonBuilder
 import com.yomi.doggo.data.BreedRepository
 import com.yomi.doggo.data.IRepository
 import com.yomi.doggo.network.BreedService
+import com.yomi.doggo.ui.dashboard.BreedsViewModel
+import com.yomi.doggo.ui.home.HomeViewModel
+import com.yomi.doggo.ui.home.RandomDogUseCase
 import com.yomi.doggo.util.Endpoints
 import com.yomi.doggo.util.TIME_OUT
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -19,6 +23,15 @@ import java.util.concurrent.TimeUnit
 
 val repositoryModule = module {
     factory<IRepository> { BreedRepository(get()) }
+}
+
+val useCaseModule = module {
+    factory { RandomDogUseCase(get()) }
+}
+
+val viewModelModule = module {
+    viewModel { HomeViewModel(get()) }
+    viewModel { BreedsViewModel(get()) }
 }
 
 val networkModule = module {

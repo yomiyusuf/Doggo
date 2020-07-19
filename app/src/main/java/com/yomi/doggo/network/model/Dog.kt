@@ -7,4 +7,7 @@ import com.google.gson.annotations.SerializedName
  */
 data class Dog(
     @SerializedName("message")
-    val imageUrl: String)
+    val imageUrl: String,
+
+    @SerializedName("status")
+    val status: String)
