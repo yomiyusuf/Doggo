@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/navigation_breeds"
-        android:name="com.yomi.doggo.ui.dashboard.DashboardFragment"
+        android:name="com.yomi.doggo.ui.dashboard.BreedsFragment"
         android:label="@string/title_breeds"
         tools:layout="@layout/fragment_breeds" />
 </navigation>
