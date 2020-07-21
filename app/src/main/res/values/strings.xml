@@ -3,4 +3,10 @@
     <string name="title_home">Guess</string>
     <string name="title_breeds">Breeds</string>
     <string name="no_internet_msg">Please check your internet connection</string>
+    <string name="guess_my_breed">Guess my breed</string>
+    <string name="chances_msg">You have %1$s %2$s left.</string>
+    <plurals name="chances">
+        <item quantity="one">chance</item>
+        <item quantity="other">chances</item>
+    </plurals>
 </resources>

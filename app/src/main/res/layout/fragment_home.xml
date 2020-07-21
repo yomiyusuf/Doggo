@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guide_image"
@@ -27,7 +27,31 @@
         android:layout_height="0dp"
         android:scaleType="centerCrop"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="@id/guide_image"
+        app:layout_constraintBottom_toBottomOf="@id/guide_image"/>
+
+    <TextView
+        android:id="@+id/txt_chances"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/text_chances"
+        tools:text="You have 1 more chance"
+        app:layout_constraintBottom_toBottomOf="@id/guide_button_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:gravity="center"
+        android:padding="@dimen/base_dimen_2"
+        android:layout_marginBottom="@dimen/base_dimen"
+        android:visibility="gone"
+        />
+
+    <nl.dionsegijn.konfetti.KonfettiView
+        android:id="@+id/confetti"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/image_dog"
+        app:layout_constraintBottom_toBottomOf="@id/image_dog"
+        app:layout_constraintStart_toStartOf="@id/image_dog"
+        app:layout_constraintEnd_toEndOf="@id/image_dog"
         />
 
     <View
@@ -53,9 +77,10 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txt_guess"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Guess my breed"
+                android:text="@string/guess_my_breed"
                 style="@style/text_doggy"
                 />
 
@@ -82,7 +107,16 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="48dp"
-
+        />
+    
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="50dp"
         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

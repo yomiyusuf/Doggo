@@ -53,6 +53,6 @@ fun Button.updateState(options: List<Option>) {
     myOption?.let { this.updateState(it) }
 }
 
-fun View.show(boolean: Boolean) {
-    if (boolean) { this.visibility =View.VISIBLE } else { this.visibility = View.GONE }
+fun View.show(boolean: Boolean = true) {
+    if (boolean) { this.visibility = View.VISIBLE } else { this.visibility = View.GONE }
 }

@@ -52,6 +52,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     implementation 'com.airbnb.android:paris:1.5.0'
+    implementation 'nl.dionsegijn:konfetti:1.2.2'
 
     // Networking
     implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
@@ -61,10 +62,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.okhttp"
 
     // Tools
-    implementation "com.facebook.stetho:stetho-okhttp3:$rootProject.stetho"
-
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
