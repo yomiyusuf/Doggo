@@ -56,3 +56,18 @@ fun Button.updateState(options: List<Option>) {
 fun View.show(boolean: Boolean = true) {
     if (boolean) { this.visibility = View.VISIBLE } else { this.visibility = View.GONE }
 }
+
+/**
+ * get the breed name from the image url of this format: https://images.dog.ceo/breeds/husky/n02110185_9855.jpg
+ * https://images.dog.ceo/breeds/husky/n02110185_9855.jpg should return "husky"
+ * https://images.dog.ceo/breeds/terrier-australian/n02096294_8025.jpg" should return "australian husky"
+ */
+fun String.getBreedNameFromUrl(): String {
+    val name = this.substringAfter("breeds/").substringBeforeLast("/")
+    return if (name.contains("-")) {
+        val list = name.split("-")
+        "${list[1]} ${list[0]}"
+    } else {
+        name
+    }
+}

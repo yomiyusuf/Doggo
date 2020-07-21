@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName
 /**
  * Created by Yomi Joseph on 2020-07-20.
  */
-data class Dog(
+data class SampleBreedsResponse(
     @SerializedName("message")
-    val imageUrl: String,
+    val list: List<String>,
 
     @SerializedName("status")
     val status: String)

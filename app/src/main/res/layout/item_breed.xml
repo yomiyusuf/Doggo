@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="@dimen/base_dimen_2"
+    app:cardCornerRadius="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <ImageView
+            android:id="@+id/image_item_breed"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:src="@drawable/doggy"
+            android:scaleType="centerCrop"
+            />
+
+        <TextView
+            android:id="@+id/txt_item_breed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="English Bulldog"
+            style="@style/text_breed"
+            />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

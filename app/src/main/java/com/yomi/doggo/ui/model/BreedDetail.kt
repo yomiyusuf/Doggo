@@ -5,16 +5,18 @@ import com.yomi.doggo.network.model.Breed
 /**
  * Created by Yomi Joseph on 2020-07-20.
  */
-class BreedDetail(val name: String, val path: String) {
+class BreedDetail(val name: String, val path: String, val imageUrl: String? = null) {
+
+    constructor(name: String, imageUrl: String): this(name, "", imageUrl)
 
     companion object {
         fun toBreedDetails(fromApi: Breed): List<BreedDetail> {
             val list = mutableListOf<BreedDetail>()
             if (fromApi.subBreeds.isEmpty()) {
-                list.add(BreedDetail(fromApi.breedName, fromApi.breedName.toLowerCase()))
+                list.add(BreedDetail(fromApi.breedName, path = fromApi.breedName.toLowerCase()))
             } else {
                 fromApi.subBreeds.forEach {
-                    list.add(BreedDetail("$it ${fromApi.breedName}", "${fromApi.breedName}/$it"))
+                    list.add(BreedDetail("$it ${fromApi.breedName}", path = "${fromApi.breedName}/$it"))
                 }
             }
 

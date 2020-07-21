@@ -4,9 +4,10 @@ import com.google.gson.GsonBuilder
 import com.yomi.doggo.data.BreedRepository
 import com.yomi.doggo.data.IRepository
 import com.yomi.doggo.network.BreedService
-import com.yomi.doggo.ui.dashboard.BreedsViewModel
+import com.yomi.doggo.ui.breeds.BreedsUseCase
+import com.yomi.doggo.ui.breeds.BreedsViewModel
 import com.yomi.doggo.ui.home.HomeViewModel
-import com.yomi.doggo.ui.home.BreedsUseCase
+import com.yomi.doggo.ui.home.BreedQuestionUseCase
 import com.yomi.doggo.util.Endpoints
 import com.yomi.doggo.util.TIME_OUT
 import okhttp3.OkHttpClient
@@ -26,6 +27,7 @@ val repositoryModule = module {
 }
 
 val useCaseModule = module {
+    factory { BreedQuestionUseCase(get()) }
     factory { BreedsUseCase(get()) }
 }
 

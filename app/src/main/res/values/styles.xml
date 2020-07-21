@@ -39,6 +39,12 @@
         <item name="android:background">@color/colorPrimaryLight</item>
     </style>
 
+    <style name="text_breed">
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:padding">@dimen/base_dimen</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="AppTheme.Launcher" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/launcher</item>
         <item name="colorPrimaryDark">@color/colorPrimary</item>

@@ -11,26 +11,28 @@ import com.yomi.doggo.util.SingleLiveEvent
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
 
-class HomeViewModel(private val useCase: BreedsUseCase) : ProgressViewModel() {
+/**
+ * Created by Yomi Joseph on 2020-07-21.
+ */
+class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewModel() {
 
     private val _currentQuestion = MutableLiveData<BreedQuestion>()
     val currentQuestion: LiveData<BreedQuestion> = _currentQuestion
 
     private val _showCelebration = SingleLiveEvent<Boolean>()
-    val showCelebration = _showCelebration
+    val showCelebration : LiveData<Boolean> = _showCelebration
 
     private val _readyForNextQuestion = MutableLiveData<Boolean>()
-    val readyForNextQuestion = _readyForNextQuestion
+    val readyForNextQuestion : LiveData<Boolean> = _readyForNextQuestion
 
     private val _resetView = SingleLiveEvent<Boolean>()
-    val resetView = _resetView
+    val resetView : LiveData<Boolean> = _resetView
 
     private val _chancesLeft = MutableLiveData<Pair<Boolean, Int?>>()
-    val chancesLeft = _chancesLeft
+    val chancesLeft : LiveData<Pair<Boolean, Int?>> = _chancesLeft
 
     var numberOfChances = Constants.NUMBER_OF_CHANCES
 
-        private val errorHandler = CoroutineExceptionHandler{_, exception -> handleError(exception)}
 
     fun getRandomDog() {
         reset(Constants.NUMBER_OF_CHANCES)
@@ -43,7 +45,7 @@ class HomeViewModel(private val useCase: BreedsUseCase) : ProgressViewModel() {
         }
 
     }
-    private fun handleError(exception: Throwable) {
+    override fun handleError(exception: Throwable) {
         transitionToIdle()
         //handle error
     }

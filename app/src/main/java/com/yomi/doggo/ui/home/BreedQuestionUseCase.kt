@@ -1,7 +1,7 @@
 package com.yomi.doggo.ui.home
 
 import com.yomi.doggo.data.IRepository
-import com.yomi.doggo.network.model.Dog
+import com.yomi.doggo.network.model.DogResponse
 import com.yomi.doggo.ui.model.BreedDetail
 import com.yomi.doggo.ui.model.BreedQuestion
 import com.yomi.doggo.ui.model.Option
@@ -13,7 +13,7 @@ import java.util.*
 /**
  * Created by Yomi Joseph on 2020-07-20.
  */
-class BreedsUseCase(private val breedRepo: IRepository) {
+class BreedQuestionUseCase(private val breedRepo: IRepository) {
 
     private var breedsListCache: List<BreedDetail>? = null
 
@@ -61,7 +61,7 @@ class BreedsUseCase(private val breedRepo: IRepository) {
      * @param breed the breed the dog belongs to. This will represent the correct answer in the UI
      * @param numberOfOptions total number of options (wrong and correct) we wish to display in the UI
      */
-    private fun createBreedQuestion(dog: Dog, breed: BreedDetail, numberOfOptions: Int): BreedQuestion {
+    private fun createBreedQuestion(dog: DogResponse, breed: BreedDetail, numberOfOptions: Int): BreedQuestion {
         return BreedQuestion(dog.imageUrl, arrayListOf(Option(breed.name, true))).apply {
             this.options.addAll(getRandomBreeds(numberOfOptions - 1, breed).map { Option(it) })
         }.apply {

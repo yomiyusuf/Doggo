@@ -4,20 +4,21 @@ import com.yomi.doggo.network.BreedApiException
 import com.yomi.doggo.network.BreedService
 import com.yomi.doggo.network.Constants
 import com.yomi.doggo.network.model.Breed
-import com.yomi.doggo.network.model.Dog
+import com.yomi.doggo.network.model.DogResponse
+import com.yomi.doggo.network.model.SampleBreedsResponse
 
 /**
  * Created by Yomi Joseph on 2020-07-20.
  */
 class BreedRepository(private val breedService: BreedService): IRepository {
 
-    override suspend fun getRandomDog(breed: String): Dog {
+    override suspend fun getRandomDog(breed: String): DogResponse {
         val resp = breedService.getRandom(breed)
 
         return if (resp.isSuccessful && resp.body()?.status == Constants.SUCCESS) {
             resp.body()!!
         } else {
-            //Log errror to (crashlytics?)
+            //Log error to (crashlytics?)
             throw BreedApiException(resolveErrorMessage(resp.errorBody().toString()))
         }
     }
@@ -37,6 +38,17 @@ class BreedRepository(private val breedService: BreedService): IRepository {
             Breed("mastiff", listOf("bull", "english", "tibetan")),
             Breed("mountain", listOf("bernese", "swiss"))
         )
+    }
+
+    override suspend fun getSampleBreeds(): SampleBreedsResponse {
+        val resp = breedService.getSampleBreeds()
+
+        return if (resp.isSuccessful && resp.body()?.status == Constants.SUCCESS) {
+            resp.body()!!
+        } else {
+            //Log error to (crashlytics?)
+            throw BreedApiException(resolveErrorMessage(resp.errorBody().toString()))
+        }
     }
 
     //resolve error message to different more informative messages
