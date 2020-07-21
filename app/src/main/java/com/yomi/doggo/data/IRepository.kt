@@ -1,5 +1,6 @@
 package com.yomi.doggo.data
 
+import com.yomi.doggo.network.model.Breed
 import com.yomi.doggo.network.model.Dog
 
 /**
@@ -7,5 +8,5 @@ import com.yomi.doggo.network.model.Dog
  */
 interface IRepository {
     suspend fun getRandomDog(breed: String): Dog
-    suspend fun getBreeds(): List<Dog>
+    suspend fun getBreeds(): List<Breed>
 }

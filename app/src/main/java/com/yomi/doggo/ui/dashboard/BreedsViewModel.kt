@@ -3,6 +3,7 @@ package com.yomi.doggo.ui.dashboard
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yomi.doggo.ui.home.BreedsUseCase
 
 class BreedsViewModel(private val useCase: BreedsUseCase) : ViewModel() {
 

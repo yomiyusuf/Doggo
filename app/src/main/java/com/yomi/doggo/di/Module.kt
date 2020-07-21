@@ -6,7 +6,7 @@ import com.yomi.doggo.data.IRepository
 import com.yomi.doggo.network.BreedService
 import com.yomi.doggo.ui.dashboard.BreedsViewModel
 import com.yomi.doggo.ui.home.HomeViewModel
-import com.yomi.doggo.ui.home.RandomDogUseCase
+import com.yomi.doggo.ui.home.BreedsUseCase
 import com.yomi.doggo.util.Endpoints
 import com.yomi.doggo.util.TIME_OUT
 import okhttp3.OkHttpClient
@@ -26,7 +26,7 @@ val repositoryModule = module {
 }
 
 val useCaseModule = module {
-    factory { RandomDogUseCase(get()) }
+    factory { BreedsUseCase(get()) }
 }
 
 val viewModelModule = module {
