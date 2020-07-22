@@ -5,6 +5,8 @@
     <string name="no_internet_msg">Please check your internet connection</string>
     <string name="guess_my_breed">Guess my breed</string>
     <string name="chances_msg">You have %1$s %2$s left.</string>
+    <string name="try_again">Oops! Something went wrong. Try again.</string>
+    <string name="retry">Retry</string>
 
     <plurals name="chances">
         <item quantity="one">chance</item>

@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yomi.doggo.R
-import com.yomi.doggo.ui.common.RecyclerViewSpaceItemDecoration
+import com.yomi.doggo.ui.common.ItemOffsetDecoration
 import com.yomi.doggo.util.show
 import kotlinx.android.synthetic.main.fragment_breeds.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -31,9 +31,7 @@ class BreedsFragment : Fragment() {
     }
 
     private fun initRecyclerView() {
-        val decoration = RecyclerViewSpaceItemDecoration(
-            resources.getDimension(R.dimen.material_margin).toInt(),
-            resources.getDimension(R.dimen.material_margin).toInt())
+        val decoration = ItemOffsetDecoration( requireContext(), R.dimen.base_dimen_2)
 
         rv_breeds.apply {
             addItemDecoration(decoration)
@@ -48,6 +46,10 @@ class BreedsFragment : Fragment() {
                 rv_breeds.show()
                 listAdapter.updateData(it)
             }
+        })
+
+        viewModel.loadingError.observe(viewLifecycleOwner, Observer {
+            view?.findViewById<View>(R.id.error_layout)?.show(it)
         })
     }
 }

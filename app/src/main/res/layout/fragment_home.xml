@@ -120,4 +120,9 @@
         android:layout_margin="50dp"
         />
 
+    <include
+        android:id="@+id/error_layout"
+        layout="@layout/layout_error"
+        android:visibility="gone" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -62,6 +62,10 @@ class HomeFragment : Fragment() {
         viewModel.chancesLeft.observe(viewLifecycleOwner, Observer {
             handleChancesMessage(it)
         })
+
+        viewModel.loadingError.observe(viewLifecycleOwner, Observer {
+            view?.findViewById<View>(R.id.error_layout)?.show(it)
+        })
     }
 
     private fun handleCurrentQuestion(question: BreedQuestion) {

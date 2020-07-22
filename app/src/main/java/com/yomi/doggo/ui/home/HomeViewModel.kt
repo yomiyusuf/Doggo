@@ -45,10 +45,6 @@ class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewMod
         }
 
     }
-    override fun handleError(exception: Throwable) {
-        transitionToIdle()
-        //handle error
-    }
 
     fun selectOption(option: Option) {
         updateCurrentQuestion(option)
@@ -73,6 +69,7 @@ class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewMod
     }
 
     private fun reset(numberOfChances: Int) {
+        reset()
         _resetView.postValue(true)
         _readyForNextQuestion.postValue(false)
         _showCelebration.postValue(false)

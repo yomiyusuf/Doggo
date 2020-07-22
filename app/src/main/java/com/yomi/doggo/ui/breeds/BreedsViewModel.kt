@@ -13,15 +13,12 @@ class BreedsViewModel(private val useCase: BreedsUseCase) : ProgressViewModel() 
     val breeds: LiveData<List<BreedDetail>> = _breeds
 
     fun getBreeds() {
+        reset()
         transitionToBusy()
         viewModelScope.launch(errorHandler) {
             useCase.getSampleBreeds().let {
                 _breeds.value = it
             }
         }
-    }
-    override fun handleError(exception: Throwable) {
-        transitionToIdle()
-        //handle error
     }
 }
