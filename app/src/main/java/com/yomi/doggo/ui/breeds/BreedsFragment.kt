@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
@@ -50,6 +51,9 @@ class BreedsFragment : Fragment() {
 
         viewModel.loadingError.observe(viewLifecycleOwner, Observer {
             view?.findViewById<View>(R.id.error_layout)?.show(it)
+            view?.findViewById<Button>(R.id.btn_retry)?.setOnClickListener {
+                viewModel.getBreeds()
+            }
         })
     }
 }

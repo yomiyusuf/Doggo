@@ -28,7 +28,7 @@ class BreedQuestionUseCase(private val breedRepo: IRepository) {
 
     /**
      * The api response of this call is not expected to change frequently. Definitely not during a user session
-     * Return the cache @breedsListCache if it has been filled. Else make a network call
+     * Make a network call if @breedsListCache has been filled.
      */
     private suspend fun populateBreedsCache() {
          if (breedsListCache == null) {

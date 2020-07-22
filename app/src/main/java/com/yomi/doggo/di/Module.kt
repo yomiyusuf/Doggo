@@ -10,8 +10,10 @@ import com.yomi.doggo.ui.home.HomeViewModel
 import com.yomi.doggo.ui.home.BreedQuestionUseCase
 import com.yomi.doggo.util.Endpoints
 import com.yomi.doggo.util.TIME_OUT
+import okhttp3.Cache
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -41,9 +43,19 @@ val networkModule = module {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BASIC
 
+        val cacheSize = (5 * 1024 * 1024).toLong()
+        val myCache = Cache(androidContext().cacheDir, cacheSize)
+
         val okHttpClient = OkHttpClient.Builder()
             .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
             .readTimeout(TIME_OUT, TimeUnit.SECONDS)
+            .cache(myCache)
+            .addInterceptor{ chain ->
+                val request = chain.request()
+                //add default caching. Endpoint that should not be cached should be annotated with @Headers
+                request.newBuilder().header("Cache-Control", "public, only-if-cached, max-stale=" + 60 * 60 * 24 * 7).build()
+                chain.proceed(request)
+            }
             .addInterceptor(logging)
             .build()
 

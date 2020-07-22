@@ -10,6 +10,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.yomi.doggo.R
 import com.yomi.doggo.ui.model.Option
+import org.json.JSONArray
 
 fun getProgressDrawable(context: Context): CircularProgressDrawable{
     return CircularProgressDrawable(context).apply {
@@ -70,4 +71,11 @@ fun String.getBreedNameFromUrl(): String {
     } else {
         name
     }
+}
+
+fun JSONArray.toList(): List<String> {
+    val str = this.toString().replace("[", "").replace("]", "")
+    if (str.toList().isEmpty()) return listOf()
+
+    return str.split(",")
 }

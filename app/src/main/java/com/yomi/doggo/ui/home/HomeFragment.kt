@@ -65,6 +65,9 @@ class HomeFragment : Fragment() {
 
         viewModel.loadingError.observe(viewLifecycleOwner, Observer {
             view?.findViewById<View>(R.id.error_layout)?.show(it)
+            view?.findViewById<Button>(R.id.btn_retry)?.setOnClickListener {
+                viewModel.getRandomDog()
+            }
         })
     }
 

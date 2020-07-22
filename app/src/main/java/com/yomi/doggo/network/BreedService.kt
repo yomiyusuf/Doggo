@@ -3,6 +3,7 @@ package com.yomi.doggo.network
 import com.yomi.doggo.network.model.DogResponse
 import com.yomi.doggo.network.model.SampleBreedsResponse
 import com.yomi.doggo.util.Endpoints
+import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers
@@ -18,8 +19,9 @@ interface BreedService {
     suspend fun getRandom(@Path("breed_path", encoded = true) breed: String): Response<DogResponse>
 
     @GET(Endpoints.ALL_BREEDS)
-    suspend fun getAllBreeds(): Response<List<DogResponse>>
+    suspend fun getAllBreeds(): ResponseBody
 
+    @Headers("Cache-Control: no-cache")
     @GET(Endpoints.SAMPLE_BREEDS)
     suspend fun getSampleBreeds(): Response<SampleBreedsResponse>
 }
