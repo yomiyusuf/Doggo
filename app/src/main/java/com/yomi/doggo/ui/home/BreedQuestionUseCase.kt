@@ -8,7 +8,6 @@ import com.yomi.doggo.ui.model.Option
 import com.yomi.doggo.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.util.*
 
 /**
  * Created by Yomi Joseph on 2020-07-20.
@@ -51,8 +50,13 @@ class BreedQuestionUseCase(private val breedRepo: IRepository) {
     /**
      * Method to get a randomised list of breeds apart from the @param breed
      */
-    private fun getRandomBreeds(count: Int, breed: BreedDetail ): List<BreedDetail> {
-        return breedsListCache!!.shuffled(Random(3)).minus(breed).take(count)
+    private fun getRandomBreeds(count: Int, apartFrom: BreedDetail ): List<BreedDetail> {
+        val list =  breedsListCache!!.shuffled().take(count + 1).toMutableList()
+        val itemToBeRemoved = list.find { it.name == apartFrom.name }
+        if (itemToBeRemoved != null) {
+            list.remove(itemToBeRemoved)
+        }
+        return list.take(count)
     }
 
     /**
@@ -62,10 +66,7 @@ class BreedQuestionUseCase(private val breedRepo: IRepository) {
      * @param numberOfOptions total number of options (wrong and correct) we wish to display in the UI
      */
     private fun createBreedQuestion(dog: DogResponse, breed: BreedDetail, numberOfOptions: Int): BreedQuestion {
-        return BreedQuestion(dog.imageUrl, arrayListOf(Option(breed.name, true))).apply {
-            this.options.addAll(getRandomBreeds(numberOfOptions - 1, breed).map { Option(it) })
-        }.apply {
-            options.shuffle()
-        }
+        val options = getRandomBreeds(numberOfOptions - 1, breed).map { Option(it) }.plus(Option(breed.name, true)).shuffled()
+        return BreedQuestion(dog.imageUrl, options)
     }
 }

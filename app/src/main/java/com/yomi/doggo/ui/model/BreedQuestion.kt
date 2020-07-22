@@ -5,7 +5,7 @@ package com.yomi.doggo.ui.model
  */
 data class BreedQuestion(
     val imageUrl: String,
-    val options: ArrayList<Option>
+    val options: List<Option>
 )
 
 data class Option(

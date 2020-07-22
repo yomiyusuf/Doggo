@@ -77,5 +77,5 @@ fun JSONArray.toList(): List<String> {
     val str = this.toString().replace("[", "").replace("]", "")
     if (str.toList().isEmpty()) return listOf()
 
-    return str.split(",")
+    return str.split(",").map { it.replace("\"", "") }
 }

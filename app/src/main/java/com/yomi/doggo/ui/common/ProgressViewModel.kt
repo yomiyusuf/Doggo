@@ -29,7 +29,6 @@ open class ProgressViewModel: ViewModel() {
     }
 
     private fun handleError(exception: Throwable) {
-        Log.e("HANDLE ERROR", exception.message)
         transitionToIdle()
         _loadingError.value = true
     }
