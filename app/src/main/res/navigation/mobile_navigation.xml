@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.yomi.doggo.ui.home.HomeFragment"
+        android:name="com.yomi.doggo.ui.feature.home.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_breeds"
-        android:name="com.yomi.doggo.ui.breeds.BreedsFragment"
+        android:name="com.yomi.doggo.ui.feature.breeds.BreedsFragment"
         android:label="@string/title_breeds"
         tools:layout="@layout/fragment_breeds" />
 </navigation>

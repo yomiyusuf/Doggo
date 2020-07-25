@@ -14,7 +14,7 @@ import org.json.JSONObject
  */
 class BreedRepository(private val breedService: BreedService): IRepository {
 
-    override suspend fun getRandomDog(breed: String): DogResponse {
+    override suspend fun getDogForBreed(breed: String): DogResponse {
         val resp = breedService.getRandom(breed)
 
         return if (resp.isSuccessful && resp.body()?.status == Constants.SUCCESS) {

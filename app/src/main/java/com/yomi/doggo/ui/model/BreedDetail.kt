@@ -5,7 +5,7 @@ import com.yomi.doggo.network.model.Breed
 /**
  * Created by Yomi Joseph on 2020-07-20.
  */
-class BreedDetail(val name: String, val path: String, val imageUrl: String? = null) {
+data class BreedDetail(val name: String, val path: String, val imageUrl: String? = null) {
 
     constructor(name: String, imageUrl: String): this(name, "", imageUrl)
 

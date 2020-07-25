@@ -1,4 +1,4 @@
-package com.yomi.doggo.ui.breeds
+package com.yomi.doggo.ui.feature.breeds
 
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +26,9 @@ class BreedsAdapter(private val breedList: ArrayList<BreedDetail>):
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BreedViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val view = inflater.inflate(R.layout.item_breed, parent, false)
-        return BreedViewHolder(view)
+        return BreedViewHolder(
+            view
+        )
     }
 
     override fun getItemCount() = breedList.size

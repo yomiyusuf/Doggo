@@ -1,9 +1,13 @@
 package com.yomi.doggo.util
 
 import android.content.Context
+import android.os.Build
+import android.os.VibrationEffect
+import android.os.Vibrator
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
+import androidx.fragment.app.Fragment
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -32,11 +36,16 @@ fun ImageView.loadImage(uri: String?, progressDrawable: CircularProgressDrawable
         .into(this)
 }
 
-fun View.visibleOrGone(visible: Boolean) {
-    this.visibility = if (visible) View.VISIBLE else View.GONE
+fun Fragment.vibratePhone() {
+    val vibrator = context?.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+    if (Build.VERSION.SDK_INT >= 26) {
+        vibrator.vibrate(VibrationEffect.createOneShot(200, VibrationEffect.DEFAULT_AMPLITUDE))
+    } else {
+        vibrator.vibrate(200)
+    }
 }
 
-fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.capitalize() }
+fun String.capitalizeWords(): String = split(" ").joinToString(" ") { it.toLowerCase().capitalize() }
 
 fun Button.updateState(option: Option) {
     this.isEnabled = !option.isSelected

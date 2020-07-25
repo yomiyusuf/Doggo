@@ -1,20 +1,25 @@
-package com.yomi.doggo.ui.home
+package com.yomi.doggo.ui.feature.home
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.yomi.doggo.ui.common.CoroutineContextProvider
 import com.yomi.doggo.ui.common.ProgressViewModel
 import com.yomi.doggo.ui.model.BreedQuestion
 import com.yomi.doggo.ui.model.Option
-import com.yomi.doggo.util.Constants
+import com.yomi.doggo.util.Configuration
 import com.yomi.doggo.util.SingleLiveEvent
-import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * Created by Yomi Joseph on 2020-07-21.
  */
-class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewModel() {
+class HomeViewModel(
+    private val useCase: BreedQuestionUseCase,
+    private val contextProvider: CoroutineContextProvider,
+    private val config: Configuration
+) : ProgressViewModel() {
 
     private val _currentQuestion = MutableLiveData<BreedQuestion>()
     val currentQuestion: LiveData<BreedQuestion> = _currentQuestion
@@ -31,19 +36,19 @@ class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewMod
     private val _chancesLeft = MutableLiveData<Pair<Boolean, Int?>>()
     val chancesLeft : LiveData<Pair<Boolean, Int?>> = _chancesLeft
 
-    var numberOfChances = Constants.NUMBER_OF_CHANCES
+    var numberOfChancesLeft = config.NUMBER_OF_CHANCES
 
 
     fun getRandomDog() {
-        reset(Constants.NUMBER_OF_CHANCES)
+        reset(config.NUMBER_OF_CHANCES)
         transitionToBusy()
         viewModelScope.launch(errorHandler) {
-            useCase.getRandomDog().let {
-                _currentQuestion.value = it
+            val question = withContext(contextProvider.IO) {
+                useCase.getBreedQuestion()
             }
+            _currentQuestion.value = question
             transitionToIdle()
         }
-
     }
 
     fun selectOption(option: Option) {
@@ -63,9 +68,9 @@ class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewMod
     }
 
     private fun onWrongOptionSelected() {
-        numberOfChances--
-        if (numberOfChances == 0) _readyForNextQuestion.postValue(true)
-        _chancesLeft.postValue(Pair(true, numberOfChances))
+        numberOfChancesLeft--
+        if (numberOfChancesLeft == 0) _readyForNextQuestion.postValue(true)
+        _chancesLeft.postValue(Pair(true, numberOfChancesLeft))
     }
 
     private fun reset(numberOfChances: Int) {
@@ -74,6 +79,6 @@ class HomeViewModel(private val useCase: BreedQuestionUseCase) : ProgressViewMod
         _readyForNextQuestion.postValue(false)
         _showCelebration.postValue(false)
         _chancesLeft.postValue(Pair(false, null))
-        this.numberOfChances = numberOfChances
+        this.numberOfChancesLeft = numberOfChances
     }
 }

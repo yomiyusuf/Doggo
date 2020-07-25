@@ -1,4 +1,4 @@
-package com.yomi.doggo.ui.breeds
+package com.yomi.doggo.ui.feature.breeds
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,11 +17,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class BreedsFragment : Fragment() {
 
     private val viewModel by viewModel<BreedsViewModel>()
-    private val listAdapter = BreedsAdapter(arrayListOf())
+    private val listAdapter =
+        BreedsAdapter(arrayListOf())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_breeds, container, false)
-        registerObservers()
         if (savedInstanceState == null) viewModel.getBreeds()
         return root
     }
@@ -29,6 +29,11 @@ class BreedsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        registerObservers()
     }
 
     private fun initRecyclerView() {

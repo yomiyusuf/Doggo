@@ -4,10 +4,13 @@ import com.google.gson.GsonBuilder
 import com.yomi.doggo.data.BreedRepository
 import com.yomi.doggo.data.IRepository
 import com.yomi.doggo.network.BreedService
-import com.yomi.doggo.ui.breeds.BreedsUseCase
-import com.yomi.doggo.ui.breeds.BreedsViewModel
-import com.yomi.doggo.ui.home.HomeViewModel
-import com.yomi.doggo.ui.home.BreedQuestionUseCase
+import com.yomi.doggo.ui.common.CoroutineContextProvider
+import com.yomi.doggo.ui.feature.breeds.BreedsUseCase
+import com.yomi.doggo.ui.feature.breeds.BreedsViewModel
+import com.yomi.doggo.ui.feature.home.HomeViewModel
+import com.yomi.doggo.ui.feature.home.BreedQuestionUseCase
+import com.yomi.doggo.util.Configuration
+import com.yomi.doggo.util.DoggoHelper
 import com.yomi.doggo.util.Endpoints
 import com.yomi.doggo.util.TIME_OUT
 import okhttp3.Cache
@@ -29,13 +32,22 @@ val repositoryModule = module {
 }
 
 val useCaseModule = module {
-    factory { BreedQuestionUseCase(get()) }
+    factory { BreedQuestionUseCase(get(), get(), get()) }
     factory { BreedsUseCase(get()) }
 }
 
 val viewModelModule = module {
-    viewModel { HomeViewModel(get()) }
-    viewModel { BreedsViewModel(get()) }
+    viewModel { HomeViewModel(get(), get(), get()) }
+    viewModel { BreedsViewModel(get(), get()) }
+}
+
+val coroutineContextModule = module {
+    factory { CoroutineContextProvider() }
+}
+
+val utilModule = module {
+    factory { Configuration() }
+    factory { DoggoHelper() }
 }
 
 val networkModule = module {

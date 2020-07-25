@@ -1,7 +1,8 @@
-package com.yomi.doggo.ui.home
+package com.yomi.doggo.ui.feature.home
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,7 +28,6 @@ class HomeFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
-        registerObservers()
         if (savedInstanceState == null) viewModel.getRandomDog()
         return root
     }
@@ -38,6 +38,11 @@ class HomeFragment : Fragment() {
         fab_next.setOnClickListener { viewModel.getRandomDog() }
     }
 
+    override fun onStart() {
+        super.onStart()
+        registerObservers()
+    }
+
     private fun registerObservers() {
         viewModel.currentQuestion.observe(viewLifecycleOwner, Observer { question ->
             handleCurrentQuestion(question)
@@ -45,7 +50,7 @@ class HomeFragment : Fragment() {
 
         viewModel.readyForNextQuestion.observe(viewLifecycleOwner, Observer { prepareForNextQuestion(it) })
 
-        viewModel.showCelebration.observe(viewLifecycleOwner, Observer { bool -> if (bool) showConfetti() })
+        viewModel.showCelebration.observe(viewLifecycleOwner, Observer { bool -> if (bool) showCelebration() })
 
         viewModel.resetView.observe(viewLifecycleOwner, Observer { shouldReset ->
             if (shouldReset) {
@@ -115,7 +120,8 @@ class HomeFragment : Fragment() {
         image_dog.setImageDrawable(null)
     }
 
-    private fun showConfetti() {
+    private fun showCelebration() {
+        vibratePhone()
         confetti.build()
             .addColors(Color.YELLOW, resources.getColor(R.color.colorPrimaryLight), resources.getColor(R.color.colorPrimary))
             .setDirection(359.0, 0.0)

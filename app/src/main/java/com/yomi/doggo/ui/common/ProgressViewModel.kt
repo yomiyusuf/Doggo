@@ -1,6 +1,5 @@
 package com.yomi.doggo.ui.common
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -8,7 +7,7 @@ import kotlinx.coroutines.CoroutineExceptionHandler
 /**
  * Created by Yomi Joseph on 2020-07-22.
  *
- * Superclass for viewmodeld  with common methods and livedata
+ * Superclass for viewmodels  with common methods and states
  */
 open class ProgressViewModel: ViewModel() {
 
