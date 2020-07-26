@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.airbnb.paris.extensions.style
 import com.yomi.doggo.R
+import com.yomi.doggo.ui.common.ProgressFragment
 import com.yomi.doggo.ui.model.BreedQuestion
 import com.yomi.doggo.util.*
 import kotlinx.android.synthetic.main.fragment_home.*
 import nl.dionsegijn.konfetti.models.Shape
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class HomeFragment : Fragment() {
+class HomeFragment : ProgressFragment() {
 
     private val viewModel by viewModel<HomeViewModel>()
 
@@ -96,16 +96,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun handleLoadingState(isLoading: Boolean) {
-        progress_bar.show(isLoading)
+    override fun onLoadingStateChange(isLoading: Boolean) {
         txt_guess.show(!isLoading)
-    }
-
-    private fun handleErrorState(isError: Boolean) {
-        view?.findViewById<View>(R.id.error_layout)?.show(isError)
-        view?.findViewById<Button>(R.id.btn_retry)?.setOnClickListener {
-            viewModel.getRandomDog()
-        }
     }
 
     private fun resetUI(reset: Boolean) {
@@ -115,6 +107,10 @@ class HomeFragment : Fragment() {
             image_dog.setImageDrawable(null)
             confetti.stopGracefully()
         }
+    }
+
+    override fun onRetry() {
+        viewModel.getRandomDog()
     }
 
     private fun showCelebration() {

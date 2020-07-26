@@ -10,11 +10,12 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import com.yomi.doggo.R
 import com.yomi.doggo.ui.common.ItemOffsetDecoration
+import com.yomi.doggo.ui.common.ProgressFragment
 import com.yomi.doggo.util.show
 import kotlinx.android.synthetic.main.fragment_breeds.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class BreedsFragment : Fragment() {
+class BreedsFragment : ProgressFragment() {
 
     private val viewModel by viewModel<BreedsViewModel>()
     private val listAdapter =
@@ -54,11 +55,13 @@ class BreedsFragment : Fragment() {
             }
         })
 
-        viewModel.loadingError.observe(viewLifecycleOwner, Observer {
-            view?.findViewById<View>(R.id.error_layout)?.show(it)
-            view?.findViewById<Button>(R.id.btn_retry)?.setOnClickListener {
-                viewModel.getBreeds()
-            }
-        })
+        viewModel.loadingError.observe(viewLifecycleOwner, Observer { handleErrorState(it) })
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { handleLoadingState(it) })
     }
+
+    override fun onRetry() {
+        viewModel.getBreeds()
+    }
+
+    override fun onLoadingStateChange(isLoading: Boolean) { }
 }

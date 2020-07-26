@@ -14,18 +14,18 @@
         <item name="android:background">@drawable/bg_primary_button</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textColor">@color/text_primary_button</item>
-        <item name="android:layout_marginStart">32dp</item>
-        <item name="android:layout_marginEnd">32dp</item>
-        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginStart">@dimen/base_dimen_8</item>
+        <item name="android:layout_marginEnd">@dimen/base_dimen_8</item>
+        <item name="android:layout_marginTop">@dimen/material_margin</item>
         <item name="android:paddingEnd">@dimen/base_dimen</item>
         <item name="android:textAppearance">@style/TextAppearance.AppCompat.Small</item>
     </style>
 
-    <style name="text_doggy">
+    <style name="text_doggo">
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:padding">10dp</item>
         <item name="android:drawableEnd">@drawable/ic_paw</item>
-        <item name="android:drawablePadding">16dp</item>
+        <item name="android:drawablePadding">@dimen/material_margin</item>
         <item name="android:fontFamily">@font/doggy</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">16sp</item>

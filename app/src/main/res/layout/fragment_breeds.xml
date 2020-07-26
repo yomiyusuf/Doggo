@@ -15,6 +15,17 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="50dp"
+        android:visibility="gone"
+        />
+
     <include
         android:id="@+id/error_layout"
         layout="@layout/layout_error"

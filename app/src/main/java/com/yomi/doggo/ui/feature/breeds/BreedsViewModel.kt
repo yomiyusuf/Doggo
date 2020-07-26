@@ -24,6 +24,7 @@ class BreedsViewModel(
             val data = withContext(contextProvider.IO) {
                 useCase.getSampleBreeds()
             }
+            transitionToIdle()
             _breeds.value = data
         }
     }
