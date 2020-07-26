@@ -27,7 +27,7 @@ class BreedRepository(private val breedService: BreedService): IRepository {
 
     override suspend fun getBreeds(): List<Breed> {
         val resp = breedService.getAllBreeds()
-        return getBreeds(resp.string())
+        return handleBreedsResponse(resp.string())
     }
 
     override suspend fun getSampleBreeds(): SampleBreedsResponse {
@@ -41,17 +41,23 @@ class BreedRepository(private val breedService: BreedService): IRepository {
         }
     }
 
-    private fun getBreeds(json: String): List<Breed> {
+    private fun handleBreedsResponse(json: String): List<Breed> {
         val list = mutableListOf<Breed>()
-        val body = JSONObject(json).getJSONObject("message")
+        val response = JSONObject(json)
+        val body = response.getJSONObject("message")
+        val status = response.getString("status")
 
-        val iter: Iterator<String> = body.keys()
-        while (iter.hasNext()) {
-            val key = iter.next()
-            val subBreeds = body.getJSONArray(key)
-            list.add(Breed(key, subBreeds.toList()))
+        if (status == Constants.SUCCESS) {
+            val iter: Iterator<String> = body.keys()
+            while (iter.hasNext()) {
+                val key = iter.next()
+                val subBreeds = body.getJSONArray(key)
+                list.add(Breed(key, subBreeds.toList()))
+            }
+            return list
+        } else {
+            throw BreedApiException(resolveErrorMessage(""))
         }
-        return list
     }
 
     //resolve error message to different more informative messages

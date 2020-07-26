@@ -36,7 +36,7 @@ class HomeViewModel(
     private val _chancesLeft = MutableLiveData<Pair<Boolean, Int?>>()
     val chancesLeft : LiveData<Pair<Boolean, Int?>> = _chancesLeft
 
-    var numberOfChancesLeft = config.NUMBER_OF_CHANCES
+    private var numberOfChancesLeft = config.NUMBER_OF_CHANCES
 
 
     fun getRandomDog() {

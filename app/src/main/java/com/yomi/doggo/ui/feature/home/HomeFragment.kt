@@ -2,7 +2,6 @@ package com.yomi.doggo.ui.feature.home
 
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -44,36 +43,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun registerObservers() {
-        viewModel.currentQuestion.observe(viewLifecycleOwner, Observer { question ->
-            handleCurrentQuestion(question)
-        })
+        viewModel.currentQuestion.observe(viewLifecycleOwner, Observer { question -> handleCurrentQuestion(question) })
 
         viewModel.readyForNextQuestion.observe(viewLifecycleOwner, Observer { prepareForNextQuestion(it) })
 
-        viewModel.showCelebration.observe(viewLifecycleOwner, Observer { bool -> if (bool) showCelebration() })
+        viewModel.showCelebration.observe(viewLifecycleOwner, Observer {  if (it) showCelebration() })
 
-        viewModel.resetView.observe(viewLifecycleOwner, Observer { shouldReset ->
-            if (shouldReset) {
-                resetUI()
-                confetti.stopGracefully()
-            }
-        })
+        viewModel.resetView.observe(viewLifecycleOwner, Observer { resetUI(it) })
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer { isLoading ->
-            progress_bar.show(isLoading)
-            txt_guess.show(!isLoading)
-        })
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { handleLoadingState(it) })
 
-        viewModel.chancesLeft.observe(viewLifecycleOwner, Observer {
-            handleChancesMessage(it)
-        })
+        viewModel.chancesLeft.observe(viewLifecycleOwner, Observer { handleChancesMessage(it) })
 
-        viewModel.loadingError.observe(viewLifecycleOwner, Observer {
-            view?.findViewById<View>(R.id.error_layout)?.show(it)
-            view?.findViewById<Button>(R.id.btn_retry)?.setOnClickListener {
-                viewModel.getRandomDog()
-            }
-        })
+        viewModel.loadingError.observe(viewLifecycleOwner, Observer { handleErrorState(it)})
     }
 
     private fun handleCurrentQuestion(question: BreedQuestion) {
@@ -114,10 +96,25 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun resetUI() {
-        optionButtons.clear()
-        btnsContainer.removeAllViews()
-        image_dog.setImageDrawable(null)
+    private fun handleLoadingState(isLoading: Boolean) {
+        progress_bar.show(isLoading)
+        txt_guess.show(!isLoading)
+    }
+
+    private fun handleErrorState(isError: Boolean) {
+        view?.findViewById<View>(R.id.error_layout)?.show(isError)
+        view?.findViewById<Button>(R.id.btn_retry)?.setOnClickListener {
+            viewModel.getRandomDog()
+        }
+    }
+
+    private fun resetUI(reset: Boolean) {
+        if (reset) {
+            optionButtons.clear()
+            btnsContainer.removeAllViews()
+            image_dog.setImageDrawable(null)
+            confetti.stopGracefully()
+        }
     }
 
     private fun showCelebration() {

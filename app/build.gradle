@@ -12,7 +12,7 @@ android {
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.yomi.doggo.common.KoinTestRunner"
     }
     buildTypes {
         release {
@@ -31,6 +31,7 @@ android {
     }
 
     testOptions {
+        animationsDisabled = true
         unitTests {
             includeAndroidResources = true
         }
@@ -79,12 +80,16 @@ dependencies {
     testImplementation "androidx.arch.core:core-testing:$rootProject.coreTestingVersion"
     testImplementation "org.mockito:mockito-core:$rootProject.mockitoVersion"
     testImplementation "org.robolectric:robolectric:$rootProject.robolectricVersion"
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$rootProject.kotlin_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0"
+    testImplementation "io.mockk:mockk:$rootProject.mockkVersion"
+    testImplementation "org.json:json:20200518"
 
     androidTestImplementation "androidx.test:core:$rootProject.testCoreVersion"
     androidTestImplementation "androidx.test:runner:$rootProject.testRunnerVersion"
     androidTestImplementation "androidx.test:rules:$rootProject.testRulesVersion"
+    androidTestImplementation "io.mockk:mockk-android:$rootProject.mockkVersion"
 
     androidTestImplementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     androidTestImplementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
@@ -103,5 +108,4 @@ dependencies {
 
     androidTestImplementation "org.koin:koin-test:$koin_version"
     testImplementation "org.koin:koin-test:$koin_version"
-    testImplementation "io.mockk:mockk:$mockk_version"
 }
